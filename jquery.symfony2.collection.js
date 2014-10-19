@@ -12,11 +12,16 @@
                 collectionHolder: $this,
                 addButton: $('<a href="#" class="add-collection-item">Add</a>'),
                 deleteButton: $('<a href="#" class="delete-collection-item">Delete</a>'),
+                deleteButtonPath: null,
+                addButtonContainer: null,
+                newChildrenContainer: null,
+                onAdd: null,
+                onDelete: null,
                 name: '[Element Name]'
             }, options));
 
 
-            this.data('sfsettings').collectionHolder.children('div').each(function() {
+            this.data('sfsettings').collectionHolder.find('> div, .collection-child').each(function() {
                 methods.addDeleteLink.apply($this, [$(this)]);
             });
 
@@ -26,14 +31,22 @@
                 methods.add.apply($this);
             });
 
-            this.data('sfsettings').collectionHolder.append(this.data('sfsettings').addButton);
-
+            if (this.data('sfsettings').addButtonContainer) {
+                this.data('sfsettings').addButtonContainer.append(this.data('sfsettings').addButton);
+            } else {
+                this.data('sfsettings').collectionHolder.append(this.data('sfsettings').addButton);
+            }
         },
 
         addDeleteLink : function($element){
             var $removeFormA = this.data('sfsettings').deleteButton.clone();
             var $this = this;
-            $element.append($removeFormA);
+
+            if (this.data('sfsettings').deleteButtonPath) {
+                $element.find(this.data('sfsettings').deleteButtonPath).append($removeFormA)
+            } else {
+                $element.append($removeFormA);
+            }
 
             $removeFormA.on('click', function(e) {
                 // prevent the link from creating a "#" on the URL
@@ -44,7 +57,6 @@
                 }
                 // remove the li for the tag form
                 $element.remove();
-
             });
         },
 
@@ -65,7 +77,11 @@
 
             methods.addDeleteLink.apply( this, [newForm] );
 
-            addButton.before(newForm);
+            if (this.data('sfsettings').newChildrenContainer) {
+                $(this.data('sfsettings').newChildrenContainer).append(newForm);
+            } else {
+                addButton.before(newForm);
+            }
 
             if ( typeof this.data('sfsettings').onAdd === 'function' ){
                 this.data('sfsettings').onAdd(newForm);
