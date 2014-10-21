@@ -26,7 +26,7 @@ $("#collection").collection({
       $(child).find('select').select2(); // some random examples
       $(child).find('.datetime').datepicker();
   }, 
-  onDelete: : function (child) {
+  onDelete: function (child) {
       // do something here after deleting a child
   },
 });
