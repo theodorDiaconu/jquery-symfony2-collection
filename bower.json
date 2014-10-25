@@ -1,0 +1,24 @@
+{
+  "name": "jquery-symfony2-collection",
+  "version": "0.1",
+  "homepage": "https://github.com/theodorDiaconu/jquery-symfony2-collection",
+  "authors": [
+    { "name": "theodorDiaconu"}
+  ],
+  "description": "Using Symfony2 Collections easily",
+  "main": "jquery.symfony2.collection.js",
+  "keywords": [
+    "symfony2",
+    "jquery",
+    "collection"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "jquery": ">= 2.1.1"
+  }
+}

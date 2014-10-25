@@ -68,10 +68,12 @@
 
             var prototype = this.data('sfsettings').collectionHolder.attr('data-prototype');
 
+            var childrenContainer = (this.data('sfsettings').newChildrenContainer) ? this.data('sfsettings').newChildrenContainer : collectionHolder;
+
             // Replace '__name__' in the prototype's HTML to
             // instead be a number based on the current collection's length.
-            var newForm = prototype.replace(/__name__label__/g, name + collectionHolder.children().length);
-            newForm = newForm.replace( /__name__/g, collectionHolder.children().length );
+            var newForm = prototype.replace(/__name__label__/g, name + childrenContainer.children('.collection-child').length);
+            newForm = newForm.replace( /__name__/g, childrenContainer.children('.collection-child').length );
             newForm = $( newForm );
             newForm.addClass('collection-child');
 
