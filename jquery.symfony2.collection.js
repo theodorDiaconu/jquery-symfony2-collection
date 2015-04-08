@@ -4,7 +4,7 @@
         init : function( options ){
             var $this = this;
 
-            if ( this[0] == undefined ){
+            if ( this[0] === undefined ){
                 return;
             }
 
@@ -80,20 +80,20 @@
 
             this.trigger('collectionadd', [newForm[0]]);
         }
-
-    }
+    };
 
     $.fn.collection = function( method ){
-        // Method calling logic
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on jQuery.symfony' );
-        }
-
-        return this;
+        var args = arguments;
+        return $(this).each(function() {
+          // Method calling logic
+          if ( methods[method] ) {
+              return methods[ method ].apply( $(this), Array.prototype.slice.call( args, 1 ));
+          } else if ( typeof method === 'object' || ! method ) {
+              return methods.init.apply( $(this), args );
+          } else {
+              $.error( 'Method ' +  method + ' does not exist on jQuery.collection' );
+          }
+        });
     };
 
 })( jQuery );
