@@ -22,13 +22,25 @@ $("#collection").collection({
   deleteButtonPath: null, // where to append the delete button in the new child
   addButtonContainer: null, // where should the plugin put the add button
   newChildrenContainer: null, // where should it put new children
-  onAdd: function (child) {
-      $(child).find('select').select2(); // some random examples
-      $(child).find('.datetime').datepicker();
-  }, 
-  onDelete: function (child) {
-      // do something here after deleting a child
-  },
 });
 ```
 
+Events
+------
+
+Events are triggered when the collection is manipulated :
+
+- ```collectionadd``` is triggered after a child has been added to the collection
+- ```collectionremove``` is triggered before a child is removed from the collection
+
+In both case, the DOM object manipulated is passed as an argument
+
+```js
+$("#collection").on('collectionadd', function(event, child) {
+  $(child).find('select').select2(); // some random examples
+  $(child).find('.datetime').datepicker();
+}).on('collectionremove', function(event, child) {
+  $(child).find('select').select2('destroy');
+  $(child).find('.datetime').datepicker('destroy');
+}).collection();
+```
