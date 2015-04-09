@@ -4,7 +4,7 @@
         init : function( options ){
             var $this = this;
 
-            if ( this[0] == undefined ){
+            if ( this[0] === undefined ){
                 return;
             }
 
@@ -15,8 +15,6 @@
                 deleteButtonPath: null,
                 addButtonContainer: null,
                 newChildrenContainer: null,
-                onAdd: null,
-                onDelete: null,
                 name: '[Element Name]'
             }, options));
 
@@ -43,19 +41,14 @@
             var $this = this;
 
             if (this.data('sfsettings').deleteButtonPath) {
-                $element.find(this.data('sfsettings').deleteButtonPath).append($removeFormA)
+                $element.find(this.data('sfsettings').deleteButtonPath).append($removeFormA);
             } else {
                 $element.append($removeFormA);
             }
 
             $removeFormA.on('click', function(e) {
-                // prevent the link from creating a "#" on the URL
                 e.preventDefault();
-
-                if ( typeof $this.data('sfsettings').onDelete === 'function' ){
-                    $this.data('sfsettings').onDelete($element);
-                }
-                // remove the li for the tag form
+                $this.trigger('collectionremove', [$element[0]]);
                 $element.remove();
             });
         },
@@ -85,24 +78,22 @@
                 addButton.before(newForm);
             }
 
-            if ( typeof this.data('sfsettings').onAdd === 'function' ){
-                this.data('sfsettings').onAdd(newForm);
-            }
+            this.trigger('collectionadd', [newForm[0]]);
         }
-
-    }
+    };
 
     $.fn.collection = function( method ){
-        // Method calling logic
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on jQuery.symfony' );
-        }
-
-        return this;
+        var args = arguments;
+        return $(this).each(function() {
+          // Method calling logic
+          if ( methods[method] ) {
+              return methods[ method ].apply( $(this), Array.prototype.slice.call( args, 1 ));
+          } else if ( typeof method === 'object' || ! method ) {
+              return methods.init.apply( $(this), args );
+          } else {
+              $.error( 'Method ' +  method + ' does not exist on jQuery.collection' );
+          }
+        });
     };
 
 })( jQuery );
