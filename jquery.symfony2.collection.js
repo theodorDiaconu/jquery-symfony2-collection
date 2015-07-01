@@ -17,7 +17,8 @@
                 newChildrenContainer: null,
                 onAdd: null,
                 onDelete: null,
-                name: '[Element Name]'
+                name: '[Element Name]',
+                prototypeName: '__name__'
             }, options));
 
 
@@ -70,10 +71,15 @@
 
             var childrenContainer = (this.data('sfsettings').newChildrenContainer) ? this.data('sfsettings').newChildrenContainer : collectionHolder;
 
+            // Create regexp objects with prototypeName parameter
+            var prototypeName = this.data('sfsettings').prototypeName;
+            var regexp1 = new RegExp(prototypeName+"label__", "g");
+            var regexp2 = new RegExp(prototypeName, "g");
+
             // Replace '__name__' in the prototype's HTML to
             // instead be a number based on the current collection's length.
-            var newForm = prototype.replace(/__name__label__/g, name + childrenContainer.children('.collection-child').length);
-            newForm = newForm.replace( /__name__/g, childrenContainer.children('.collection-child').length );
+            var newForm = prototype.replace( regexp1, name + childrenContainer.children('.collection-child').length);
+            newForm = newForm.replace( regexp2, childrenContainer.children('.collection-child').length );
             newForm = $( newForm );
             newForm.addClass('collection-child');
 
