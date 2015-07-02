@@ -37,6 +37,8 @@
             } else {
                 this.data('sfsettings').collectionHolder.append(this.data('sfsettings').addButton);
             }
+
+            return this;
         },
 
         addDeleteLink : function($element){
@@ -94,6 +96,8 @@
             if ( typeof this.data('sfsettings').onAdd === 'function' ){
                 this.data('sfsettings').onAdd(newForm);
             }
+
+            return newForm;
         }
 
     }
