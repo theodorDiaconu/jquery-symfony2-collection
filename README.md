@@ -1,6 +1,8 @@
 jquery-symfony2-collection
 ==========================
 
+[![Join the chat at https://gitter.im/theodorDiaconu/jquery-symfony2-collection](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/theodorDiaconu/jquery-symfony2-collection?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Read about collections here:
 http://symfony.com/doc/current/reference/forms/types/collection.html
 
